@@ -1,0 +1,15 @@
+#[backends]
+#  [backends.registry]
+#    [backends.registry.servers.server0]
+#       url = "http://127.0.0.1:5000"
+#
+#[frontends]
+#  [frontends.registry]
+#      backend = "registry"
+#      passHostHeader = true
+#      [frontends.registry.routes.route0]
+#          rule = "Host: node-01.vorona.me, node-01-m.vorona.me, node-01-n.vorona.me"
+#      [frontends.registry.auth.basic]
+#          removeHeader = true
+#          usersFile = "/etc/traefik/.htpasswd_registry"
+#          watch = true

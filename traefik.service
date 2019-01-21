@@ -1,0 +1,19 @@
+[Unit]
+Description=Træfik is a modern HTTP reverse proxy and load balancer that makes deploying microservices easy.
+After=network.target
+After=syslog.target
+
+[Service]
+Type=notify
+ExecStart=traefik -c /etc/traefik/traefik.yml
+WorkingDirectory=/etc/traefik
+Restart=on-failure
+User=traefik
+Group=traefik
+NonBlocking=true
+NoNewPrivileges=yes
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+
+[Install]
+WantedBy=multi-user.target

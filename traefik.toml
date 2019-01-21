@@ -1,0 +1,63 @@
+# debug = true
+# logLevel = "DEBUG"
+
+logLevel = "INFO"
+defaultEntryPoints = ["http", "https"]
+[api]
+  entryPoint = "traefik"
+  dashboard = true
+
+[entryPoints]
+  [entryPoints.traefik]
+  address = ":58080"
+    [entryPoints.traefik.auth.basic]
+    users = ["test:$apr1$H6uskkkW$IgXLP6ewTrSuBkTrqE8wj/", "test2:$apr1$d9hr9HBB$4HxwgUir3HP4EsggP/QNo0"]
+    [entryPoints.traefik.tls]
+    compress = false # https://github.com/containous/traefik/issues/2760
+    MinVersion = "VersionTLS12"
+    CipherSuites = [
+      "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+      "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+      "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA",
+      "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA"
+    ]
+
+  [entryPoints.http]
+  address = ":80"
+    [entryPoints.http.redirect]
+      entryPoint = "https"
+  [entryPoints.https]
+  address = ":443"
+    [entryPoints.https.tls]
+    compress = false # https://github.com/containous/traefik/issues/2760
+    MinVersion = "VersionTLS12"
+    CipherSuites = [
+      "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+      "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+      "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA",
+      "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA"
+    ]
+
+[retry]
+
+[acme]
+email = "vorona.tolik@gmail.com"
+storage = "/etc/traefik/acme.json"
+entryPoint = "https"
+onHostRule = true
+  [acme.httpChallenge]
+  entryPoint = "http"
+
+
+#[[acme.domains]]
+#  main = "node-01.vorona.me"
+#  sans = ["mode-01-m.vorona.me", "node-01-n.vorona.me"]
+#
+#[[acme.domains]]
+#  main = "master.vorona.me"
+#  sans = ["database.vorona.me", "db.vorona.me"]
+
+
+[file]
+  filename = "/etc/traefik/rules.toml"
+  watch = true

@@ -4,7 +4,7 @@
 %define		git_bin_name	traefik_linux-amd64
 
 Name:		traefik
-Version:	1.7.7
+Version:	1.7.9
 Release:	%{pkg_release}%{?dist}
 Summary:	The Cloud Native Edge Router https://traefik.io
 
@@ -38,7 +38,7 @@ Requires(pre): shadow-utils
     %{__cp}   -p %{SOURCE3}                       %{buildroot}%{_sysconfdir}/%{name}/
 
 %files
-%{_bindir}/%{name}
+%attr(755, root, root) %{_bindir}/%{name}
 %{_unitdir}/%{name}.service
 %config %{_sysconfdir}/%{name}/*.toml
 %dir %attr(0751, %{name}, %{name}) %{_sysconfdir}/%{name}/

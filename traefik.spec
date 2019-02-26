@@ -1,6 +1,6 @@
 %global		debug_package	%{nil}
 
-%define		pkg_release	    1
+%define		pkg_release	    2
 %define		git_bin_name	traefik_linux-amd64
 
 Name:		traefik

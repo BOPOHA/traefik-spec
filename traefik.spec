@@ -49,8 +49,8 @@ Requires(pre): shadow-utils
 
 
 %pre
-getent group GROUPNAME >/dev/null || groupadd -r GROUPNAME
-getent passwd USERNAME >/dev/null || \
+getent group traefik >/dev/null || groupadd -r traefik
+getent passwd traefik >/dev/null || \
     useradd -r -g traefik -d /var/lib/treafik -s /sbin/nologin \
     -c "The Cloud Native Edge Router" traefik
 exit 0
